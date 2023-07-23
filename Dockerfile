@@ -1,10 +1,7 @@
-FROM node:18-alpine as builder
+FROM node:18-alpine
 
 LABEL version="1.0.0"
 LABEL description="Imgallery NodeJS Api"
-
-# update packages, to reduce risk of vulnerabilities
-# RUN apt-get update && apt-get upgrade -y && apt-get autoclean -y && apt-get autoremove -y
 
 # setting working directory
 WORKDIR /app
