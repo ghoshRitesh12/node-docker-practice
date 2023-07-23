@@ -2,17 +2,24 @@ name: Docker Image CI for GHCR
 
 on:
   push:
-    branches: [ "main" ]
+    branches: 
+      - "main"
   pull_request:
-    branches: [ "main" ]
+    branches: 
+      - "main"
 
 jobs:
-  build:
+  build_docker_image:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Build and push the Docker image
-      run: |
-        docker login --username ghoshritesh12 --password ${{ secrets.GHCR_ACCESS_TOKEN }} ghcr.io
-        docker build -t ghcr.io/ghoshritesh12/imgallery-backend:latest .
-        docker push ghcr.io/ghoshritesh12/imgallery-backend:latest
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Login to GitHub Container Registry
+      run: docker login --username ghoshritesh12 --password ${{ secrets.GHCR_ACCESS_TOKEN }} ghcr.io
+
+    - name: Build the docker image
+      run: docker build -t ghcr.io/ghoshritesh12/imgallery-backend:1.0.0 .
+
+    - name: Push built image to GitHub Container Registry
+      run: docker push ghcr.io/ghoshritesh12/imgallery-backend:1.0.0
