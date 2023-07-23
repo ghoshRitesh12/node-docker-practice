@@ -1,16 +1,27 @@
-FROM node:18-alpine
+FROM node:18-alpine as builder
 
+LABEL version="1.0.0"
+LABEL description="Imgallery NodeJS Api"
+
+# update packages, to reduce risk of vulnerabilities
+RUN apt-get update && apt-get upgrade -y && apt-get autoclean -y && apt-get autoremove -y
+
+# setting working directory
 WORKDIR /app
 
-COPY package.json .
+# copying project dependencies for better caching
+COPY package*.json ./
 
-RUN npm i
+# install dependencies here, for better reuse of layers
+RUN npm install && npm update && npm cache clean --force
 
+# copying all sources in the container
 COPY . ./
 
+# setting non priviledged user
 USER node
 
+# expose port(s)
 EXPOSE 2000
 
-
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
