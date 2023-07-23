@@ -4,7 +4,7 @@ LABEL version="1.0.0"
 LABEL description="Imgallery NodeJS Api"
 
 # update packages, to reduce risk of vulnerabilities
-RUN apt-get update && apt-get upgrade -y && apt-get autoclean -y && apt-get autoremove -y
+# RUN apt-get update && apt-get upgrade -y && apt-get autoclean -y && apt-get autoremove -y
 
 # setting working directory
 WORKDIR /app
