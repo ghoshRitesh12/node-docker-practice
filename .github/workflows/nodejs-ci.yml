@@ -12,11 +12,11 @@ on:
       - "main"
 
 jobs:
-  tests:
+  run_tests:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout repo
         uses: actions/checkout@v3
       - name: Setup node
         uses: actions/setup-node@v3
